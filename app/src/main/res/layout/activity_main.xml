@@ -37,7 +37,9 @@
         android:layout_height="wrap_content"
         android:text="Calculate"
         android:layout_marginTop="22dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        app:icon="@drawable/smiley"
+        app:iconGravity="end" />
 
     <TextView
         android:id="@+id/resultText"
