@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             "Subtract" -> num1 - num2
             "Multiply" -> num1 * num2
             "Divide" -> if (num2 != 0.0) num1 / num2 else Double.NaN
+            "Modulus" -> num1 % num2
             else -> 0.0
         }
         resultText.text = result.toString()
