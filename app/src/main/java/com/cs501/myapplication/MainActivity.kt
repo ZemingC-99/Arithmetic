@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,14 +34,36 @@ class MainActivity : AppCompatActivity() {
         val num1 = firstNum.text.toString().toDoubleOrNull() ?: return
         val num2 = secondNum.text.toString().toDoubleOrNull() ?: return
 
+        if (num1 == null || num2 == null) {
+            showError("Oops, please enter valid numbers.")
+            return
+        }
+
         val result = when (operationSpinner.selectedItem.toString()) {
             "Add" -> num1 + num2
             "Subtract" -> num1 - num2
             "Multiply" -> num1 * num2
-            "Divide" -> if (num2 != 0.0) num1 / num2 else Double.NaN
+            "Divide" -> {
+                if (num2 == 0.0) {
+                    showError("Oops, cannot divide by zero!")
+                    return
+                }
+                num1 / num2
+            }
             "Modulus" -> num1 % num2
             else -> 0.0
         }
+
+        if (result > 1e8) {
+            showError("Oops, Result is too large to display!")
+            return
+        }
+
         resultText.text = result.toString()
+    }
+
+    private fun showError(message: String) {
+        Snackbar.make(
+            findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
     }
 }
